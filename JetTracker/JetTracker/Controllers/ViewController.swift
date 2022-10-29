@@ -9,22 +9,24 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // In Class VC initialize TbleView
     var tableView = UITableView()
     
+    // Struct Cells holds a static name value
     struct Cells{
         static let customCell = "customcell"
     }
     
-    
+    // When view loads initially
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "TITLE"
         // Fetch Data
+        // Config the table view
         configureTableView()
     }
     
     // Configure the table view
-
     func configureTableView(){
         // Add tableview to view
         view.addSubview(tableView)
@@ -38,6 +40,7 @@ class ViewController: UIViewController {
         tableView.pin(to: view)
     }
     
+    // Sets tableview delgates
     func setTableViewDelegates(){
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,6 +48,7 @@ class ViewController: UIViewController {
     
 }
 
+// Conform to tableview protocols
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10

@@ -18,9 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead)
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        // Create navcontroller which points to first VC
         let navController = UINavigationController(rootViewController: ViewController())
         navController.navigationBar.prefersLargeTitles = true
         
+        // Create window for VC
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = navController
