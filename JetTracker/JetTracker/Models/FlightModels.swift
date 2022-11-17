@@ -28,7 +28,7 @@ class Network: ObservableObject{
 
     // create method to fetch data (GET REQUEST HTTP)
 
-    func fetchFlights() async{
+    func fetchFlights() {//async
 
         let urlString = "http://api.aviationstack.com/v1/flights?access_key=cde5ef4127732deac540fab1f43d233c"
         

@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     // In Class VC initialize TbleView
     var tableView = UITableView()
     
+    var API = Network()
+    
     // Struct Cells holds a static name value
     struct Cells{
         static let customCell = "customcell"
@@ -22,6 +24,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         title = "TITLE"
         // Fetch Data
+        API.fetchFlights()
         // Config the table view
         configureTableView()
     }
