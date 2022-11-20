@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         title = "TITLE"
         // Fetch Data
         API.fetchFlights()
+        
+        //print (API.Flights.data[0].flight_date)
         // Config the table view
         configureTableView()
     }

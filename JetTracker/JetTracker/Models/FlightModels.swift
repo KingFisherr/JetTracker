@@ -7,9 +7,20 @@
 
 import Foundation
 
-struct FlightData: Decodable{
-    var data: Data
-}
+//// Swift models from JSON data, decodable because we need to decode data
+//struct FlightData: Decodable{
+//    var data: [Flights]
+//}
+//struct Flights: Decodable{
+//    var flight_date: String
+//    var flight_status: String
+//    var departure: Departure
+//}
+//
+//struct Departure: Decodable{
+//    var airport: String
+//    var timezone: String
+//}
 
 // Create class called flights which has methods and data structures we can use to fetch and store data for later use.
 
@@ -20,9 +31,23 @@ struct FlightData: Decodable{
 // flights data: https://api.aviationstack.com/v1/flights?access_key=cde5ef4127732deac540fab1f43d233c
 
 class Network: ObservableObject{
-    
+    // Swift models from JSON data, decodable because we need to decode data
+    struct FlightData: Codable{
+        var data: [FlightsJSON]!
+    }
+    struct FlightsJSON: Codable{
+        var flight_date: String
+        var flight_status: String
+        var departure: Departure
+    }
+
+    struct Departure: Codable{
+        let airport: String!
+        let timezone: String!
+    }
+
     // Array to hold data
-    @Published var Flights = [FlightData]()
+    @Published var Flights: [FlightsJSON] = []
 
 
 
@@ -47,11 +72,20 @@ class Network: ObservableObject{
                 print (error.localizedDescription)
             }
 
-            if let data = data,
-               let file = String(data: data, encoding: .utf8){
-                print (file)
+//            if let data = data,
+//               let file = String(data: data, encoding: .utf8){
+//                print (file)
+//            }
+            do {
+                let decodedresponse = try JSONDecoder().decode(FlightData.self, from: data!)
+                DispatchQueue.main.async {
+                    self.Flights = decodedresponse.data
+                    print (self.Flights[0].departure)
+                }
+            } catch{
+                print(String(describing: error))
             }
-
+            
         }
         dataTask.resume()
     }
