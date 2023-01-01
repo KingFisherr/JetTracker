@@ -39,11 +39,31 @@ class Network: ObservableObject{
         var flight_date: String
         var flight_status: String
         var departure: Departure
+        var arrival: Arrival
+        var airline:Airline
+        var flight: Flight
     }
 
     struct Departure: Codable{
         let airport: String!
         let timezone: String!
+        let terminal: String!
+        let gate: String!
+        let scheduled: String!
+        
+    }
+    struct Arrival:Codable{
+        let airport:String!
+        let timezone: String!
+        let terminal: String!
+        let gate: String!
+        let scheduled: String!
+    }
+    struct Airline:Codable{
+        let name: String!
+    }
+    struct Flight:Codable{
+        let number: String!
     }
 
     // Array to hold data
@@ -80,7 +100,7 @@ class Network: ObservableObject{
                 let decodedresponse = try JSONDecoder().decode(FlightData.self, from: data!)
                 DispatchQueue.main.async {
                     self.Flights = decodedresponse.data
-                    print (self.Flights[0].departure)
+                    print (self.Flights[0].departure.airport!)
                 }
             } catch{
                 print(String(describing: error))

@@ -8,9 +8,10 @@
 import UIKit
 
 class Cell: UITableViewCell {
-    
+        
     var sampleImageView = UIImageView()
     var titleLabel = UILabel()
+    
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -20,6 +21,7 @@ class Cell: UITableViewCell {
         
         configureImageView()
         configureTitleView()
+        setTitleLabelConstraints()
         
         
     }
@@ -28,9 +30,9 @@ class Cell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(){
+    func set(flight: String){
         
-        
+        titleLabel.text = flight
         
     }
     
@@ -52,7 +54,7 @@ class Cell: UITableViewCell {
         sampleImageView.widthAnchor.constraint(equalTo:sampleImageView.heightAnchor,multiplier:16/9).isActive = true
     }
     
-    func setLabelConstraints(){
+    func setTitleLabelConstraints(){
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerYAnchor.constraint(equalTo:centerYAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: sampleImageView.trailingAnchor,constant:20).isActive = true

@@ -25,7 +25,6 @@ class ViewController: UIViewController {
         title = "TITLE"
         // Fetch Data
         API.fetchFlights()
-        
         //print (API.Flights.data[0].flight_date)
         // Config the table view
         configureTableView()
@@ -62,9 +61,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.customCell) as! Cell // We want fucn from cell file
-        
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.customCell) as! Cell // We want func from cell file
+//        let flightd = API.Flights[indexPath.row]
+//        cell.set(flight: "flightd")
+        cell.sampleImageView.image = UIImage(named: "bold")
+        cell.titleLabel.text = "etts"
         return cell
     }
     
