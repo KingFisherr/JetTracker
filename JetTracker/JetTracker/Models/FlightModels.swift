@@ -35,6 +35,7 @@ class Network: ObservableObject{
     struct FlightData: Codable{
         var data: [FlightsJSON]!
     }
+    
     struct FlightsJSON: Codable{
         var flight_date: String
         var flight_status: String
@@ -45,25 +46,28 @@ class Network: ObservableObject{
     }
 
     struct Departure: Codable{
-        let airport: String!
-        let timezone: String!
-        let terminal: String!
-        let gate: String!
-        let scheduled: String!
+        let airport: String?
+        let timezone: String?
+        let terminal: String?
+        let gate: String?
+        let scheduled: String?
         
     }
+    
     struct Arrival:Codable{
-        let airport:String!
-        let timezone: String!
-        let terminal: String!
-        let gate: String!
-        let scheduled: String!
+        let airport:String?
+        let timezone: String?
+        let terminal: String?
+        let gate: String?
+        let scheduled: String?
     }
+    
     struct Airline:Codable{
-        let name: String!
+        let name: String?
     }
+    
     struct Flight:Codable{
-        let number: String!
+        let number: String?
     }
 
     // Array to hold data
@@ -73,8 +77,7 @@ class Network: ObservableObject{
 
     // create method to fetch data (GET REQUEST HTTP)
 
-    func fetchFlights() {//async
-
+    func fetchFlights(completed:@escaping ()-> ()) {//
         let urlString = "http://api.aviationstack.com/v1/flights?access_key=cde5ef4127732deac540fab1f43d233c"
         
         guard let url = URL(string: urlString) else{
@@ -100,7 +103,8 @@ class Network: ObservableObject{
                 let decodedresponse = try JSONDecoder().decode(FlightData.self, from: data!)
                 DispatchQueue.main.async {
                     self.Flights = decodedresponse.data
-                    print (self.Flights[0].departure.airport!)
+                    print (self.Flights[0].flight_status)
+                    completed()
                 }
             } catch{
                 print(String(describing: error))

@@ -24,10 +24,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         title = "TITLE"
         // Fetch Data
-        API.fetchFlights()
-        //print (API.Flights.data[0].flight_date)
+        API.fetchFlights {
+            self.tableView.reloadData()
+        }
+        
         // Config the table view
         configureTableView()
+
     }
     
     // Configure the table view
@@ -48,6 +51,7 @@ class ViewController: UIViewController {
     func setTableViewDelegates(){
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.reloadData()
     }
     
 }
@@ -55,7 +59,7 @@ class ViewController: UIViewController {
 // Conform to tableview protocols
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return API.Flights.count
         // Data.count
     }
     
@@ -64,7 +68,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: Cells.customCell) as! Cell // We want func from cell file
 //        let flightd = API.Flights[indexPath.row]
 //        cell.set(flight: "flightd")
-        cell.sampleImageView.image = UIImage(named: "bold")
+        //cell.sampleImageView.image = UIImage(named: "bold")
         cell.titleLabel.text = "etts"
         return cell
     }
