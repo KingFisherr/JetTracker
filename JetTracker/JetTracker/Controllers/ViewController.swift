@@ -69,7 +69,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
 //        let flightd = API.Flights[indexPath.row]
 //        cell.set(flight: "flightd")
         //cell.sampleImageView.image = UIImage(named: "bold")
-        cell.titleLabel.text = "etts"
+        cell.titleLabel.text = API.Flights[indexPath.row].departure.airport
         return cell
     }
     

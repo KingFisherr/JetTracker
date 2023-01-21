@@ -16,6 +16,7 @@ class Cell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         addSubview(sampleImageView)
         addSubview(titleLabel)
         
@@ -30,11 +31,11 @@ class Cell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(flight: String){
-        
-        titleLabel.text = flight
-        
-    }
+//    func set(flight: String){
+//
+//        titleLabel.text = flight
+//
+//    }
     
     func configureImageView(){
         sampleImageView.layer.cornerRadius = 10
