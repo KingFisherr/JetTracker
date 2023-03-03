@@ -59,8 +59,8 @@ class ViewController: UIViewController {
 // Conform to tableview protocols
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Count of data in array
         return API.Flights.count
-        // Data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,7 +68,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: Cells.customCell) as! Cell // We want func from cell file
 //        let flightd = API.Flights[indexPath.row]
 //        cell.set(flight: "flightd")
-        //cell.sampleImageView.image = UIImage(named: "bold")
         cell.titleLabel.text = API.Flights[indexPath.row].departure.airport
         return cell
     }

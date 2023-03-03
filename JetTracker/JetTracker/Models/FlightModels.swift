@@ -73,8 +73,6 @@ class Network: ObservableObject{
     // Array to hold data
     @Published var Flights: [FlightsJSON] = []
 
-
-
     // create method to fetch data (GET REQUEST HTTP)
 
     func fetchFlights(completed:@escaping ()-> ()) {//
@@ -103,7 +101,7 @@ class Network: ObservableObject{
                 let decodedresponse = try JSONDecoder().decode(FlightData.self, from: data!)
                 DispatchQueue.main.async {
                     self.Flights = decodedresponse.data
-                    print (self.Flights[0].flight_status)
+                    print (self.Flights[0].flight_date)
                     completed()
                 }
             } catch{
@@ -114,3 +112,84 @@ class Network: ObservableObject{
         dataTask.resume()
     }
 }
+
+
+
+//class ApiManager {
+//
+//    // Define the API endpoint URL
+//    let apiUrl = "https://example.com/api/"
+//
+//    // Function to make a GET request to the API
+//    func getRequest(completion: @escaping ([String: Any]?, Error?) -> Void) {
+//
+//        // Create the URL for the GET request
+//        let url = URL(string: apiUrl)!
+//
+//        // Create a URLRequest with the GET HTTP method
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//
+//        // Create a URLSession and data task
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request) { (data, response, error) in
+//
+//            // Handle any errors
+//            if let error = error {
+//                completion(nil, error)
+//                return
+//            }
+//
+//            // Parse the response data as a JSON dictionary
+//            if let data = data {
+//                do {
+//                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+//                    completion(json, nil)
+//                } catch {
+//                    completion(nil, error)
+//                }
+//            }
+//        }
+//
+//        // Start the data task
+//        task.resume()
+//    }
+//
+//    // Function to make a POST request to the API
+//    func postRequest(data: [String: Any], completion: @escaping ([String: Any]?, Error?) -> Void) {
+//
+//        // Create the URL for the POST request
+//        let url = URL(string: apiUrl)!
+//
+//        // Create a URLRequest with the POST HTTP method and JSON body
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        let jsonData = try? JSONSerialization.data(withJSONObject: data)
+//        request.httpBody = jsonData
+//
+//        // Create a URLSession and data task
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request) { (data, response, error) in
+//
+//            // Handle any errors
+//            if let error = error {
+//                completion(nil, error)
+//                return
+//            }
+//
+//            // Parse the response data as a JSON dictionary
+//            if let data = data {
+//                do {
+//                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+//                    completion(json, nil)
+//                } catch {
+//                    completion(nil, error)
+//                }
+//            }
+//        }
+//
+//        // Start the data task
+//        task.resume()
+//    }
+//}
