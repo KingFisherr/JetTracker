@@ -9,6 +9,16 @@ import Foundation
 import UIKit
 import MapKit
 
+
+// We want to create a logic where a user can enter (city name) and then the map zooms into that (city location).
+// Filter by airline (color coded)
+// Use gps location to zoom into user location
+
+
+
+// we need to create a button and then zoom into location.
+
+
 class FlightMapVC: UIViewController {
     
 //    let mapView : MKMapView = {
@@ -25,10 +35,36 @@ class FlightMapVC: UIViewController {
         super.viewDidLoad()
         mapView.overrideUserInterfaceStyle = .dark
         mapView.delegate = self
+        
         //coordinateTextField.delegate = self
         setMapConstraints()
+        
+        
+        // create a button and set its properties
+        let button = UIButton(type: .system)
+        button.setTitle("My Button", for: .normal)
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
+        // set the button's frame to a desired size
+        button.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+
+        // center the button within its superview
+        button.center = view.center
+        // add the button to the mapView
+        mapView.addSubview(button)
+
+         //add a target action to the button
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
 
+    
+    @objc func buttonTapped() {
+        // handle button tap
+        print("Nut")
+    }
+    
+    
+    
     func setMapConstraints() {
         view.addSubview(mapView)
         
