@@ -42,7 +42,7 @@ class FlightMapVC: UIViewController {
         
         // create a button and set its properties
         let button = UIButton(type: .system)
-        button.setTitle("My Button", for: .normal)
+        button.setTitle("Go!", for: .normal)
         button.backgroundColor = .white
         button.setTitleColor(.black, for: .normal)
         // set the button's frame to a desired size
@@ -59,11 +59,10 @@ class FlightMapVC: UIViewController {
 
     
     @objc func buttonTapped() {
-        // handle button tap
-        print("Nut")
+        let coordinate = CLLocationCoordinate2D(latitude: 37.33182, longitude: -122.03118)
+        let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        mapView.setRegion(region, animated: true)
     }
-    
-    
     
     func setMapConstraints() {
         view.addSubview(mapView)
