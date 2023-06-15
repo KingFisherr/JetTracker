@@ -10,10 +10,90 @@ import UIKit
 
 
 class DestinationsVC: UIViewController {
+    var tableView = UITableView()
+    let departureDatePicker = UIDatePicker()
+
+    struct Cells{
+        static let customCell = "customcell"
+    }
+    override func viewDidLoad() {
     
+        super.viewDidLoad()
+        navigationItem.largeTitleDisplayMode = .never
+        title = "Search By Date"
+       // self.tableView.reloadData()
+       // configureTableView()
+     
+        departureDatePicker.datePickerMode = .date
+        departureDatePicker.setDate(Date(), animated: false)
+        departureDatePicker.frame = CGRect(x: CGFloat(95), y: CGFloat(10), width: CGFloat(200), height: CGFloat(216))
+
+        view.addSubview(departureDatePicker)
+
+        let label = UILabel(frame: CGRect(x: 20, y: 100, width: 125, height: 30))
+        label.text = "Departure Date:"
+        view.addSubview(label)
+        var image = UIImage(named: "search-bar-icon")
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        image = UIImage(named: "search-bar-icon-clicked")
+        button.setImage(image, for: .highlighted)
+        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        button.frame = CGRect(x: 320, y: 95, width: 50, height: 50)
+        view.addSubview(button)
+        //self.tableView.reloadData()
+        configureTableView()
+        
+    }
+    func configureTableView(){
+        // Add tableview to view
+        tableView = UITableView(frame: CGRect(x: 0, y: 170, width: view.frame.width, height:view.frame.height - 170))
+        view.addSubview(tableView)
+        // Set Delegates
+        setTableViewDelegates()
+        // Set row height
+        tableView.rowHeight = 100
+        // Register Cells
+        tableView.register(Cell.self, forCellReuseIdentifier: Cells.customCell)
+        // Set Constraints
+       // tableView.pin(to: view)
+    }
     
-    
+    // Sets tableview delgates
+    func setTableViewDelegates(){
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.reloadData()
+    }
+    @objc func buttonTapped(_ sender: UIButton) {
+            // Handle button tap event
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        
+        // Format the selected date using the date formatter
+        let selectedDate = dateFormatter.string(from: departureDatePicker.date)
+        }
 }
+extension DestinationsVC: UITableViewDelegate, UITableViewDataSource{
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            // Count of data in array
+            return 5
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: Cells.customCell) as! Cell // We want func from cell file
+    //        let flightd = API.Flights[indexPath.row]
+    //        cell.set(flight: "flightd")
+            cell.titleLabel.text = "Date"
+            return cell
+        }
+        
+    }
+    
+    
+    
+
 //
 //In this example, we use two cell identifiers: tableCellIdentifier for the UITableViewCell in the UITableView and collectionCellIdentifier for the UICollectionViewCell in the UICollectionView. We also have an array of image names called images.
 //
