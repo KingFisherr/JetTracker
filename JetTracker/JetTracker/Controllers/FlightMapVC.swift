@@ -28,7 +28,7 @@ class FlightMapVC: UIViewController {
 //    }()
     
     var mapView = MKMapView()
-    
+    var searchTextField: UITextField!
     // weak var coordinateTextField: UITextField!
     
     override func viewDidLoad() {
@@ -55,11 +55,21 @@ class FlightMapVC: UIViewController {
 
          //add a target action to the button
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
+        // need to create a text field that takes user input
+        // uses input to match with api flight
+        // zoom in on that location...
+        searchTextField = UITextField(frame: CGRect(x: 16, y: 50, width: view.bounds.width - 32, height: 40))
+        searchTextField.placeholder = "Enter a location"
+        searchTextField.borderStyle = .roundedRect
+        searchTextField.delegate = self
+        mapView.addSubview(searchTextField)
+        
     }
 
     
     @objc func buttonTapped() {
-        let coordinate = CLLocationCoordinate2D(latitude: 37.33182, longitude: -122.03118)
+        let coordinate = CLLocationCoordinate2D(latitude: 74, longitude: 75)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
         mapView.setRegion(region, animated: true)
     }
@@ -98,6 +108,14 @@ extension FlightMapVC: MKMapViewDelegate {
   //DELEGATE FUNCTIONS
 }
 
+extension FlightMapVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Hide the keyboard
+        // Perform the search or any other action based on the user's input
+        
+        return true
+    }
+}
 // Add search functionality
 //extension MapViewController: MKMapViewDelegate {
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
