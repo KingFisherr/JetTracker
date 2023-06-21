@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     // When view loads initially
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "TITLE"
+        title = "HOME"
         // Fetch Data
         API.fetchFlights {
             self.tableView.reloadData()
