@@ -1,42 +1,22 @@
-//
-//  FlightMapVC.swift
 //  JetTracker
-//
-//  Created by Tahsin Provath on 3/2/23.
-//
 
 import Foundation
 import UIKit
 import MapKit
 
-
-// We want to create a logic where a user can enter (city name) and then the map zooms into that (city location).
-// Filter by airline (color coded)
-// Use gps location to zoom into user location
-
-
-
-// we need to create a button and then zoom into location.
-
-
 class FlightMapVC: UIViewController {
-    
-//    let mapView : MKMapView = {
-//        let map = MKMapView()
-//        map.overrideUserInterfaceStyle = .dark
-//        return map
-//    }()
-    
+
     var mapView = MKMapView()
-    var searchTextField: UITextField!
-    // weak var coordinateTextField: UITextField!
+    var searchController: UISearchController!
+    //var searchTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.overrideUserInterfaceStyle = .dark
-        mapView.delegate = self
+        mapView = MKMapView(frame: view.bounds)
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        //coordinateTextField.delegate = self
+        mapView.overrideUserInterfaceStyle = .dark
+        //mapView.delegate = self
         setMapConstraints()
         
         
@@ -59,11 +39,13 @@ class FlightMapVC: UIViewController {
         // need to create a text field that takes user input
         // uses input to match with api flight
         // zoom in on that location...
-        searchTextField = UITextField(frame: CGRect(x: 16, y: 50, width: view.bounds.width - 32, height: 40))
-        searchTextField.placeholder = "Enter a location"
-        searchTextField.borderStyle = .roundedRect
-        searchTextField.delegate = self
-        mapView.addSubview(searchTextField)
+        // Configure the search controller
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
         
     }
 
@@ -77,11 +59,11 @@ class FlightMapVC: UIViewController {
     func setMapConstraints() {
         view.addSubview(mapView)
         
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        mapView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        mapView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+//        mapView.translatesAutoresizingMaskIntoConstraints = false
+//        mapView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+//        mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+//        mapView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+//        mapView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
     }
     
 //    @IBAction func searchButtonTapped(_ sender: Any) {
@@ -108,26 +90,42 @@ extension FlightMapVC: MKMapViewDelegate {
   //DELEGATE FUNCTIONS
 }
 
-extension FlightMapVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder() // Hide the keyboard
-        // Perform the search or any other action based on the user's input
-        
-        return true
+extension FlightMapVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
+            // Clear previous search results if the search text is empty
+            return
+        }
+
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchText
+
+        let search = MKLocalSearch(request: request)
+        search.start { [weak self] (response, error) in
+            guard let self = self, let mapItems = response?.mapItems else {
+                // Handle the error or display a message if the search failed
+                
+                return
+            }
+
+            // Remove previous annotations
+            self.mapView.removeAnnotations(self.mapView.annotations)
+
+            // Add new annotations for search results
+            for mapItem in mapItems {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = mapItem.placemark.coordinate
+                annotation.title = mapItem.name
+                self.mapView.addAnnotation(annotation)
+            }
+        }
     }
 }
-// Add search functionality
-//extension MapViewController: MKMapViewDelegate {
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-//        annotationView.animatesDrop = true
-//        return annotationView
-//    }
-//}
-//
-//extension MapViewController: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-//        return true
-//    }
-//}
+
+extension FlightMapVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder() // Hide the keyboard
+        searchController.isActive = false // Dismiss the search controller
+        updateSearchResults(for: searchController)
+    }
+}
