@@ -26,9 +26,9 @@ class Cell: UITableViewCell {
 
         addSubview(sampleImageView)
         addSubview(titleLabel)
-        let button = UIButton()
+       // let button = UIButton()
 
-        button.setImage(UIImage(systemName: "square.and.arrow.down.fill"), for: .normal)
+//        button.setImage(UIImage(systemName: "square.and.arrow.down.fill"), for: .normal)
 
 
                 // Set button frame

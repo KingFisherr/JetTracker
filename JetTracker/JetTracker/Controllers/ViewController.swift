@@ -66,6 +66,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Cells.customCell) as! Cell // We want func from cell file
+        cell.button.setImage(UIImage(systemName: "square.and.arrow.down.fill"), for: .normal)
 //        let flightd = API.Flights[indexPath.row]
 //        cell.set(flight: "flightd")
         cell.titleLabel.text = API.Flights[indexPath.row].departure.airport

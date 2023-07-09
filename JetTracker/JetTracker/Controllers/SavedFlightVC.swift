@@ -48,7 +48,7 @@ class SavedFlightVC: UIViewController{
         // Set row height
         tableView.rowHeight = 100
         // Register Cells
-        tableView.register(SavedTableViewCell.self, forCellReuseIdentifier: Cells.customCell)
+        tableView.register(Cell.self, forCellReuseIdentifier: Cells.customCell)
         // Set Constraints
         tableView.pin(to: view)
     }
@@ -71,9 +71,10 @@ extension SavedFlightVC: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.customCell) as! SavedTableViewCell // We want func from cell file
+        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.customCell) as! Cell // We want func from cell file
         //let flight = savedJobsArray[indexPath.row]
        // cell.set(flight: "f")
+        cell.button.setImage(UIImage(systemName: "trash"), for: .normal)
         cell.titleLabel.text = savedJobsArray[indexPath.row] //API.Flights[indexPath.row].departure.airport
         return cell
     }
