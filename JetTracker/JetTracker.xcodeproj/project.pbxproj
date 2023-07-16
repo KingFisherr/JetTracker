@@ -21,7 +21,6 @@
 		9CEB149A28877C4A004A8B5A /* JetTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB149928877C4A004A8B5A /* JetTrackerTests.swift */; };
 		9CEB14A428877C4A004A8B5A /* JetTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB14A328877C4A004A8B5A /* JetTrackerUITests.swift */; };
 		9CEB14A628877C4A004A8B5A /* JetTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB14A528877C4A004A8B5A /* JetTrackerUITestsLaunchTests.swift */; };
-		F7A92BE72A3BC1A600C321E3 /* SavedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A92BE62A3BC1A600C321E3 /* SavedTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 		9CEB149F28877C4A004A8B5A /* JetTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JetTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CEB14A328877C4A004A8B5A /* JetTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetTrackerUITests.swift; sourceTree = "<group>"; };
 		9CEB14A528877C4A004A8B5A /* JetTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		F7A92BE62A3BC1A600C321E3 /* SavedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +170,6 @@
 				9CEB148628877C3C004A8B5A /* ViewController.swift */,
 				9C07A8BD29B17FA90067552F /* FlightMapVC.swift */,
 				9C83318D28C58EA90083CE19 /* Cell.swift */,
-				F7A92BE62A3BC1A600C321E3 /* SavedTableViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -310,7 +307,6 @@
 				9CEB148728877C3C004A8B5A /* ViewController.swift in Sources */,
 				9CEB148328877C3C004A8B5A /* AppDelegate.swift in Sources */,
 				9C83318E28C58EAA0083CE19 /* Cell.swift in Sources */,
-				F7A92BE72A3BC1A600C321E3 /* SavedTableViewCell.swift in Sources */,
 				9CEB148528877C3C004A8B5A /* SceneDelegate.swift in Sources */,
 				9C07A8C229B18B170067552F /* TabBarVC.swift in Sources */,
 				9C07A8BE29B17FA90067552F /* FlightMapVC.swift in Sources */,
