@@ -37,26 +37,38 @@ class FlightMapVC: UIViewController {
 //
 //         //add a target action to the button
 //        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        
         // Create the zoom button
         let zoomButton = UIButton(type: .system)
         zoomButton.setTitle("Zoom", for: .normal)
-        zoomButton.backgroundColor = .green
-        zoomButton.setTitleColor(.white, for: .normal)
+        zoomButton.tintColor = .white
+        zoomButton.backgroundColor = .systemBlue
+        zoomButton.layer.cornerRadius = 20
+        zoomButton.layer.masksToBounds = false
+//        zoomButton.backgroundColor = .green
+//        zoomButton.setTitleColor(.white, for: .normal)
         zoomButton.addTarget(self, action: #selector(zoomToLocation), for: .touchUpInside)
-        // set the button's frame to a desired size
-        //zoomButton.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
-            
-        // center the button within its superview
-        zoomButton.center = view.center
         
+        // set the button's frame to a desired size
+        //zoomButton.frame = CGRect(x: 10, y: 150, width: 100, height: 40)
+        
+        
+        // center the button within its superview
+        //zoomButton.center = view.center
         zoomButton.translatesAutoresizingMaskIntoConstraints = false
         mapView.addSubview(zoomButton)
 
-        // Set the button's constraints
+//        // Set the button's constraints
+//        NSLayoutConstraint.activate([
+//            zoomButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            zoomButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+//        ])
+        
+        // Set button constraints
         NSLayoutConstraint.activate([
             zoomButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            zoomButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            zoomButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            zoomButton.widthAnchor.constraint(equalToConstant: 100),
+            zoomButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         // need to create a text field that takes user input
